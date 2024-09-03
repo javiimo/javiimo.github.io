@@ -12,6 +12,3 @@ My main passions lie in the fields of Machine Learning, Operations Research, Sta
 
 Feel free to poke around and see what catches your eye.  And if you have any feedback, questions or want to chat, just reach out!
 
-#### P.S.
-
-This website is built using the [Chirpy template](https://chirpy.cotes.page/), a Jekyll theme based on the Ruby framework for generating static websites. While my knowledge of Ruby, Jekyll, and web development is very limited, the documentation is pretty straightforward. So I highly recommend it for anyone looking for a simple yet powerful way to create a website.
