@@ -25,3 +25,7 @@ package-lock.json
 # Misc
 _sass/dist
 assets/js/dist
+
+
+#My Gitignore
+_posts/2019-08-08-text-and-typography.md
