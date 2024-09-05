@@ -35,7 +35,7 @@ def __init__(self, data, _children=()):
 ```
 {: .nolineno }
 
-We can just make every value (output of an operation) keep track of where it came from (operands) within the tuple `_children` (notice tuples are unordered). 
+We can just make every value (output of an operation) keep track of where it came from (operands) within the tuple `_children` (notice tuples are unordered). The only values without children would be the input of our network (or function in general).
 
 > The name children could be confusing because it depends on which direction of the pass you are considering. Since we are interested in Backprop, we are referring to children in the backward pass (which are the parents in the forward pass). So in $a+b = c$, $a$ and $b$ are the children of $c$.
 {: .prompt-info }
@@ -60,7 +60,7 @@ def __mul__(self, other):
 
 > The use of `+=` instead of just `=` comes from the problem of having a binary operation where the 2 operands are the same. For example $a*a$ or $a+a$, the derivatives should be added in these cases.
 
-What `_backward` does is setting the value of the __derivatives (`.grad`) of the operands__ (self and other) which __depend on the value of the derivative of the output__ (due to the **chain rule!**). Therefore we need the value of the derivative of the result before we call this method on the operands! (That is why it is a backward pass, we call it from the loss to the input).
+What `_backward()` does is setting the value of the __derivatives (`.grad`) of the operands__ (self and other) which __depend on the value of the derivative of the output__ (due to the **chain rule!**). Therefore we need the value of the derivative of the result before we call this method on the operands! (That is why it is a backward pass, we call it from the loss to the input).
 
 > The derivative of the loss wrt[^wrt] itself is one, and from there we start recursive calls.
 
@@ -93,7 +93,7 @@ subgraph Ternary Operation
 end
 ```
 
-Now, what is a Topological Sort then? Well, I like to think of the DAG as a hierarchy according to how many operation are needed before getting to a certain node. So that the top of the hierarchy would be the input (there are $0$ operations before getting to that node) and the bottom would be the loss function (you have to do all the $n$ operations of the network to get there). Then, a Topological Sort is just any linear ordering that respects that hierarchy (from higher first to lower after).
+Now, what is a Topological Sort then? Well, I like to think of the DAG as a hierarchy according to the number of operations (or edges to cross) needed before getting to a certain node. So that the top of the hierarchy would be the input (there are $0$ operations before getting to that node) and the bottom would be the loss function (you have to do all the $n$ operations of the network to get there). Then, a Topological Sort is just any linear ordering that respects that hierarchy (from higher first to lower after).
 
 Let's take a look at a possible network diagram to exemplify this concept:
 ```mermaid
@@ -130,12 +130,13 @@ $$ [b,a,c,e,d,f,g,loss]$$
 
 Finally, we want to get our ordering for computing the derivatives during the backward pass, but we said we had to start from the loss, so our actual ordering will be the **reverse of the topological sort** (that means from lower hierarchy to higher hierarchy or "*from more operations to less operations*").
 
-This idea of *from lower hierarchy to higher hierarchy* translates into visiting any output before visiting their operands, since the output always belongs to a lower hierarchy than the operands that produced it.
+>This idea of *from lower hierarchy to higher hierarchy* translates into visiting any output before visiting their operands, since the output always belongs to a lower hierarchy than the operands that produced it.
+{: .prompt-tip }
 
 The code implementation of this is inside the `.backward()` method of the Value class. Notice that the children are stored in a tuple, so they don't have a specific order but that is not a problem for the topological sort since all children have the same hierarchy level. Also, the method could be called from any node and we would be computing the derivatives wrt[^wrt] to that node but in practice this is only used wrt[^wrt] the loss.
 
 > Don't let the naming convention fool you! `.backward()` is a method of the Value class and `._backward` is an attribute of the Value class that can be called because it stores a function object. 
-{: .prompt-tip }
+{: .prompt-info }
 
 > With the underscore (see the code above) we are setting the value of the derivate of the operands using the value of the derivative of the result.
 
@@ -164,7 +165,7 @@ def backward(self):
 ```
 {: .nolineno }
 
-> About the Topological Sort code: we are using recursion and notice that before appending anything to `topo` we are calling the function on every children. That means that we won't get to the append line until every children has run the `build_topo` function. Therefore until every children is appended to `topo`! And that is true for every value of the graph. This way children appear always in the list before their parents and since children here are the operands and the parents are the outputs, we get the desired behavior. Just remember to take the reverse before computing the derivatives or the code will complaint.
+> About the Topological Sort code: we are using recursion and notice that before appending anything to `topo` we are calling the function on every children. That means that we won't get to the append line until every children has run the `build_topo` function. Therefore until every children is appended to `topo`! And that is true for every value of the graph. The behavior is that all the function calls are being stacked one on top of the other and nothing is appended until we reach the inputs (that have no children). Then there is a cascade of functions that finish execution in the desired order. This way children (operands) appear always in the list before their parents (outputs). Just remember to take the reverse before computing the derivatives or the code will complaint.
 
 If you're interested in seeing a complete implementation of the Value class with more operators, and how it can be used to build layers and a neural network, check out the [micrograd GitHub repository](https://github.com/karpathy/micrograd).  The entire implementation is surprisingly concise (around a 160 lines). As Andrej Karpathy puts it, the remaining code in PyTorch for Backprop is basically about efficiency and handling tensors instead of scalars.
 
