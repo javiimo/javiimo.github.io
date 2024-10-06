@@ -2,7 +2,7 @@
 title: On Backprop Implementation
 description: Comments on the code implementation of Backpropagation
 date: 2024-09-03 11:00:00 +0200
-categories: [Deep Learning, Andrej Karpathy Zero to Hero]
+categories: [Deep Learning]
 tags: [backprop, python]
 toc: false
 math: true
