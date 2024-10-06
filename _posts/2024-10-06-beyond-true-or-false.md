@@ -1,7 +1,7 @@
 ---
-title: Beyond True or False: Intro to Fuzzy and Rough Sets
+title: Beyond True or False, Intro to Fuzzy and Rough Sets
 description: 
-date: 2024-10-04 10:00:00 +0200
+date: 2024-10-06 11:00:00 +0200
 categories: [Uncertainty Mathematical Frameworks]
 tags: [set theory, fuzzy sets, rough sets]
 math: true
