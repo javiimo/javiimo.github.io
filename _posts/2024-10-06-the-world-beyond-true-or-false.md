@@ -1,7 +1,7 @@
 ---
-title: Beyond True or False, Intro to Fuzzy and Rough Sets
-description: 
-date: 2024-10-06 11:00:00 +0200
+title: The World Beyond True or False
+description: Exploring the mathematics of vagueness and uncertainty. Overcoming spherical-cow models.
+date: 2024-10-07 09:00:00 +0200
 categories: [Uncertainty Mathematical Frameworks]
 tags: [set theory, fuzzy sets, rough sets]
 math: true
@@ -16,14 +16,14 @@ Sets are not only used for math stuff. We are constantly grouping concepts using
 
 But the  **intuitive set theory** proposed by Cantor had its limitations (contradictions could be defined) and was a big deal at the beginning of the last century, leading to **axiomatic set theories**: Axiomatic Set Theory (Zermelo-Fraenkel, 1904), Theory of Types (Whitehead and Russell, 1910), Theory of Classes (von Neumann, 1920).
 
-> A famous contradiction that arose from Cantor's proposal is Russell's paradox: If you consider the R set of all sets that are not members of themselves, then we have two cases:
+> A famous contradiction that arose from Cantor's proposal is Russell's paradox: If you consider R the set of all sets that are not members of themselves, then we have two cases:
 >   - If $R\in R$, but then R is a member of itself, so it contradicts the condition and should not be in R.
 >   - If $R\notin R$, but then R is not a member of itself, so it satisfies the condition and should be in R.
 > 
-> This is a consequence of only having two possibilities: belonging to a set or not belonging. In the end, what mathematicians did was say there is no paradox because R is not a set, it is a class and we are safe and sound, math works. (Classes are like a "more permissive set" that may lead to crazy behavior like this, they have nothing to do with equivalence classes).
+> This is a consequence of only having two possibilities: belonging to a set or not belonging. In the end, what mathematicians did was to say there is no paradox because R is not a set, it is a class and we are safe and sound, math works. (Classes are like a "more permissive set" that may lead to crazy behavior like this, they have nothing to do with equivalence classes).
 {: .prompt-tip }
 
-In Classical (or Crisp) Set Theory, a set is uniquely determined by its elements. So an element is either in a set or not. This has important implications for logic because it implies that **a statement is either true or false** (which is a huge assumption, especially given the existence of unprovable statements in the axiomatic systems we want to use in mathematics[^Godel]). Nevertheless, **this dichotomy is a must for most mathematics, since without it, we wouldn't be able to reason precisely**.
+In Classical (or Crisp) Set Theory, a set is uniquely determined by its elements. So an element is either in a set or not. This has important implications for logic because it means that **a statement is either true or false** (which is a huge assumption, especially given the existence of unprovable statements in the axiomatic systems we want to use in mathematics[^Godel]). Nevertheless, **this dichotomy is a must for most mathematics, since without it, we wouldn't be able to reason precisely**.
 
 ## Vagueness & uncertainty
 
@@ -34,12 +34,12 @@ As always, reality is more complex than our model of *spherical incompressible h
 
 Contrary to what you might be thinking, the source of vagueness isn't just us being lazy when describing something, but it's the nature of some concepts that cannot be easily quantified. For example, "tall", "expensive", "close", "good", "tasty", "healthy" are all vague concepts.
 
-Regarding mathematics for modeling uncertainty and information synthesis, the most well-known framework (but not the only one) is probability theory (upon which statistics are built). It relies on *Crisp Sets* (more specifically on a $\sigma$-algebra) and a *Classical Measure*. So here is the first distinction:
+Regarding mathematics for modeling uncertainty and information synthesis, the most well-known framework (but not the only one) is **probability theory** (upon which statistics are built). It relies on *Crisp Sets* (more specifically on a $\sigma$-algebra) and a *Classical Measure*. So here is the first distinction:
 
 - **Set Theory** provides a formal way to <u>encode data and express information</u>.
 - **Measure Theory** defines the <u>notion of metric</u> (assigns a number to a subset). If it satisfies certain properties, it is then a probability measure. 
 
-In this post, we will focus only on generalizations of Crisp Sets, not generalizations of Classical Measures (this is a beautiful topic for another day).
+In this post, we will focus only on generalizations of Crisp Sets, not generalizations of Classical Measures (that is a beautiful topic for another day).
 
 > Classical Measures can be generalized by relaxing the additivity property, asking only for monotonicity.
 > 
@@ -55,7 +55,7 @@ Let's illustrate the utility of generalizing set theory with some examples and h
 - **Universal Set:** The totality of all the things that exist pertaining to the domain of interest. It is the set of all objects or elements considered in a problem or a system.
   - <u>Closed-world</u> implies assuming it is complete and known with absolute certainty. What isn't considered here doesn't exist in our model.
   - <u>Open-world</u> assumes the universal set may be incomplete.  We **won't consider this here**.
-- **Elements of the Universal Set:** All the objects of interest, and can be defined: precisely (unique) or imprecisely (not unique). For example, let's take the universal set of all registered vehicles in Spain:
+- **Elements of the Universal Set:** All the objects of interest that can be defined: precisely (unique) or imprecisely (not unique). For example, let's take the universal set of all registered vehicles in Spain:
   - <u>Precise element:</u> The vehicle with the registration number 1234ABC. (A specific, uniquely identifiable, registered vehicle.)
   - <u>Imprecise element:</u> A red car. (Many vehicles could satisfy this vague description, but we might not have more information than this.)
 - **Set or an event:** A collection of elements from a universal set of interest. Can again be defined either precisely or imprecisely, which makes reference to the objective or subjective nature of the criteria.
@@ -150,20 +150,22 @@ Fuzzy sets were introduced by Lotfi A. Zadeh in 1965. They accept the assumption
 - Imprecise set criteria (gradient of membership).
 - Partial membership: degree of membership in [0, 1], rather than crisp {0, 1}.  For example, "tall" is a spectrum, not a binary classification.  Crisp sets are a special case where all memberships are 0 or 1.
 
-> **Where does the membership value come from?** It's a hot topic. But being arbitrary isn't necessarily a bad thing, for example in decision making, the fact that the expert can steer the model with its knowledge might be an advantage. Or we could use a neural network to fine-tune those values optimizing some policy. However, continuity gives us the assurance that small variations of the membership degree will give us small variations in the output. So I guess getting pretty close is good enough? Again, I am no expert here and I still have internal conflicts about this, so I need to read more about it.
+> **Where does the membership value come from?** It's a hot topic. But being arbitrary isn't necessarily a bad thing, for example in decision making, the fact that the expert can steer the model with its knowledge might be an advantage. Or we could use a neural network to fine-tune those values optimizing some policy. However, continuity gives us the assurance that small variations of the membership degree will give us small variations in the outcome. Then, I guess getting pretty close is good enough? I'm still having internal conflicts with this myself, so definitely more to learn here.
 {: .prompt-info }
 
-There is a LOT of theory that can be built upon this idea: generalizations of union and intersection with T-Norms and T-Conorms, fuzzy numbers with fuzzy arithmetic, fuzzy implications... I'm not getting into that because then I would be writing a whole book, not a post. But I do encourage you to read about it, it's really awesome.
+There is A LOT of theory that can be built upon this idea: generalizations of union and intersection with T-Norms and T-Conorms, fuzzy numbers with fuzzy arithmetic, fuzzy implications... I'm not getting into that because then I would be writing a whole book, not a post. But I do encourage you to read about it, it's really awesome.
 
-A very common application is representing *linguistic terms* using fuzzy numbers. Have a look at the following plot that shows how we could represent "slow", "medium speed" and "fast" using Fuzzy Numbers:
+A very common application of fuzzy sets is representing *linguistic terms* using fuzzy numbers. Have a look at the following plot that shows how we could represent "slow", "medium speed" and "fast" using Fuzzy Numbers:
 
 ![Liguistic Terms](/assets/img/posts-images/Linguistic_Terms_Fuzzy.png)
 
-### Healthy people example:
+### Healthy people toy-example:
 
 - **Precise elements:** Characterized by weight (in kg) and age (in years).
+
 - **Imprecise set:** We will use vague rules like saying that young people in their ideal weight belong to the healthy set. For this, we have to get a fuzzy representation of what *young* and *ideal* means, for example using fuzzy numbers. Like under 20 years is 100% young (1 membership), over 70 years is 0% young (0 membership) and anything in between is a decreasing function. This is arbitrary and can be based on the doctor's criteria for example (subjective).
-- **Non-binary membership:** The outcome of our inference will be a membership degree from 0 to 1.
+
+- **Non-binary membership:** The outcome of our inference will be a membership degree from 0 to 1, resulting from the aggregation of the membership degrees of *young* and *ideal*.
 
 ## Rough sets
 
@@ -173,23 +175,24 @@ Rough set theory was developed by Zdzisław I. Pawlak in the early 1980's with t
 - Precise set criteria.
 - Non-binary membership function.
 
-The primary motivation for rough sets is to address inconsistencies and incompleteness in a dataset.  Conceptually, rough sets can be viewed as crisp sets with limited resolution, employing a representation based on a partition of the universal space.
+The primary motivation for rough sets is to <u>address inconsistencies and incompleteness in a dataset.</u> Conceptually, rough sets can be viewed as **crisp sets with limited resolution, employing a representation based on a partition of the universal space**.
 
 Rough sets, unlike fuzzy sets which employ blurry boundaries, define crisp boundaries for set membership.  These boundaries delineate:
-    * The **lower approximation**: What we definitively know is within the set.
-    * The **upper approximation**: What could possibly be in the set. Or what is the same, leaving out what we definitively know is *not* within the set.
 
-Elements falling between  these crisp boundaries (out of the lower and inside the upper) reside in the **boundary region**, a gray area where membership is uncertain due to insufficient information.  A rough set with an empty boundary region is equivalent to a crisp set. Crisp sets are a special case like before!
+  - The **lower approximation**: What we definitively know is within the set.
+  - The **upper approximation**: What could possibly be in the set. Or what is the same, leaving out what we definitively know is *not* within the set.
 
-To handle new data points, we partition the data space into equivalence classes.  Each class groups similar data points from the reference set.  Any new data point is then assigned to the class it most closely resembles, linking it to existing knowledge. This partitioning forms the basis for determining set membership.
+Elements falling between  these crisp boundaries (out of the lower and inside the upper) reside in the **boundary region**, a gray area where membership is uncertain due to insufficient information (elements might or might not belong). A rough set with an empty boundary region is equivalent to a crisp set. Crisp sets are a special case like before!
+
+To handle **new data points**, we partition the data space into equivalence classes.  Each class groups similar data points from the reference set.  Any new data point is then assigned to the class it most closely resembles, linking it to existing knowledge. This partitioning forms the basis for determining set membership.
 
 
-You can also see how good attributes are for evaluating the decision variable. The rougher the set is (the bigger the boundary region is), the worse our attributes are for describing the decision variable and vice versa. This seems intuitively right: if our attributes are good for describing our data, they will help us distinguish if elements belong to our set or not.
+You can also see <u>how good attributes are for evaluating the decision variable.</u> The rougher the set is (the bigger the boundary region is), the worse our attributes are for describing the decision variable and vice versa. This seems intuitively right: if our attributes are good for describing our data, they will help us distinguish if elements belong to our set or not.
 
-> Rough sets handle inconsistency and incompleteness in a reference dataset through their boundary region.  Inconsistencies arise when elements within the same class (sharing identical attributes) have different outcomes. Incompleteness suggests that additional attributes could refine the classification, shrinking the boundary region and improving certainty.
+> **Rough sets handle inconsistency and incompleteness in a reference dataset through their boundary region**.  Inconsistencies arise when elements within the same class (sharing identical attributes) have different outcomes. Incompleteness suggests that additional attributes could refine the classification, shrinking the boundary region and improving certainty.
 {: .prompt-info }
 
-> Rough sets can also be characterized by a membership function.  Elements within the lower approximation have a membership of 1, indicating definite inclusion. Elements in the boundary region have a membership between 0 and 1, reflecting the uncertainty of their belonging. Finally, elements outside the upper approximation have a membership of 0, signifying definite exclusion.  
+> **Rough sets can also be characterized by a membership function**.  Elements within the lower approximation have a membership of 1, indicating definite inclusion. Elements in the boundary region have a membership between 0 and 1, reflecting the uncertainty of their belonging. Finally, elements outside the upper approximation have a membership of 0, signifying definite exclusion.  
 > 
 > Formally, given a set $X$ and its lower and upper approximations $\underline{X}$ and $\overline{X}$ respectively, the rough membership function $\mu_X: U \rightarrow [0, 1]$ is defined as:
 > 
@@ -206,12 +209,12 @@ You can also see how good attributes are for evaluating the decision variable. T
 {: .prompt-tip }
 
 
-In the following plot, the axis are the 2 attributes used to represent data, we have a grid of equivalence classes (partition of the universe), stars that represent the reference data points, a red rectangle (lower approximation) and a green rectangle (upper approximation). The ellipse represents a crisp set we are approximating.
+In the following plot, the axis are the 2 attributes used to represent data, we have a grid of equivalence classes (partition of the universe), stars that represent data points, a red rectangle (lower approximation) and a green rectangle (upper approximation). The ellipse represents a crisp set we are approximating.
 
 ![Rough Set Representation](/assets/img/posts-images/Rough_Set_Representation.png)
 
 
-### Healthy people example:
+### Healthy people toy-example:
 
 Imagine we have a reference dataset with the weight and the age of people and doctors who evaluated that people and said whether they were healthy or not. Then we would like to use the information from that dataset to infer if new people (new data points) belong to the healthy set or not. 
 
@@ -231,7 +234,7 @@ Notice that the new people will very likely have a weight and age combination th
 
 ## Hybrid approach
 
-We can combine both rough sets and fuzzy sets approach to get the best of both worlds (hopefully). In these cases, elements will be vaguely defined using fuzzy attributes. The only difference is whether the upper and lower approximations are crisp sets (Rough-Fuzzy Sets) or fuzzy sets as well (Fuzzy-Rough Sets).
+We can combine both rough sets and fuzzy sets approach to get the best of both worlds (hopefully). In these cases, elements will be vaguely defined using fuzzy attributes. The only difference is whether the underlying set and its upper and lower approximations are crisp sets (Rough-Fuzzy Sets) or fuzzy sets as well (Fuzzy-Rough Sets).
 
 >The distinction made in the book[^book] between **rough fuzzy sets** and **fuzzy rough sets** doesn't seem to be universally adopted, most sources call them all just fuzzy rough sets without the distinction we are making here. But from a epistemological point of view, I think it is still interesting to differentiate them.
 {: .prompt-warning }
@@ -240,13 +243,15 @@ We can combine both rough sets and fuzzy sets approach to get the best of both w
 {: .prompt-warning }
 
 
-### Rough-Fuzzy sets with the healthy people example:
+### Rough-Fuzzy sets with the healthy people toy-example:
 
 - **Imprecise elements:** Characterized by fuzzy attributes representing weight and age. For instance, "weight" could be represented by fuzzy sets like "Light", "Average", and "Heavy", each with associated membership functions. Similarly, "age" could be represented by fuzzy sets like "Young", "Middle-aged", and "Senior".  Each person would have a degree of membership to each fuzzy set (e.g., a person could have a 0.8 membership in "Average" weight, a 0.2 membership in "Heavy" weight, and a 0 membership in "Light" weight).
 
-- **Precise set:** The "healthy" set is a crisp set (healthy or not healthy). So we know if our reference elements are either healthy or not. We introduce a threshold α (e.g., 0.2) to determine significant membership to an equivalence class. Consider each specific combination of fuzzy weight and age categories (e.g., "Average" weight and "Middle-aged"); these combinations are our equivalence classes (notice that in this case, one data point might belong to more than one class, due to the imprecise definition of elements). For each person in the reference dataset, we determine their membership degrees to each class by aggregating (e.g., taking the product) the memberships of their fuzzy attributes.
+  - It is not that we have 50kg and say this is 0.8 average and 0.2 light. It is that we only know it is 0.8 average and 0.2 light. For example. imagine we had several doctors evaluate a person and classify it into those 3 categories and the membership is the proportion of doctors that chose each category for that person. I know, for a weight attribute this is strange because we can measure it numerically, but for other variables that is not possible. Just wanted to keep the same kind of example for easier comparison.
 
-  - **Membership to Equivalence Classes:** A person is considered a member of an equivalence class if their combined membership degree is greater than or equal to α (this is called defuzzification).
+- **Precise set:** The "healthy" set is a crisp set (healthy or not healthy). So we know if our reference elements are either healthy or not. Consider each specific combination of fuzzy weight and age categories (e.g., "Average" weight and "Middle-aged"); these combinations are our equivalence classes (notice that in this case, one data point might belong to more than one class, due to the imprecise definition of elements). For each person, we determine their membership degrees to each class by aggregating (e.g., taking the product) the memberships of their fuzzy attributes.
+
+  - **Membership to Equivalence Classes:** We introduce a threshold α (e.g., 0.2) to determine significant membership to an equivalence class. A person is considered a member of an equivalence class if their combined membership degree is greater than or equal to α (this is called defuzzification).
 
   - **Lower Approximation:** The lower approximation of the "healthy" set includes all classes where the *all* the individuals are healthy.
 
@@ -257,7 +262,7 @@ We can combine both rough sets and fuzzy sets approach to get the best of both w
 - **Non-binary membership:** A new individual will have a degree of membership to each equivalence class. They are considered a member of a class if their membership degree is greater than or equal to α. Then classification is the same as with Rough sets.
 
 
-### Fuzzy-Rough sets with the healthy people example:
+### Fuzzy-Rough sets with the healthy people toy-example:
 
 - **Imprecise elements:**  The same fuzzy attributes are used as in the Rough-Fuzzy case.
 
@@ -272,7 +277,7 @@ We can combine both rough sets and fuzzy sets approach to get the best of both w
 
 ## Final thoughts
 
-Consider this post a gentle introduction. There are tons of variations and improvements we could make to these examples, but I hope you've learned something new and grasped the big picture of a topic rarely mentioned in undergrad programs.
+Consider this post a gentle introduction. There are tons of variations and improvements we could make to these examples, but I hope you've learned something new and grasped the main ideas of a topic rarely mentioned in undergrad programs.
 
 I'm still learning about the topic and will most likely keep posting about this in future, stay tuned on my linkedin for updates! If you have any questions or just want to chat about this, don't think it twice and reach out :)
 
