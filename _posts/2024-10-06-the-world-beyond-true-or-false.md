@@ -1,6 +1,6 @@
 ---
 title: The World Beyond True or False
-description: Exploring the mathematics of vagueness and uncertainty. Overcoming spherical-cow models.
+description: Exploring the mathematics of vagueness and uncertainty, Fuzzy and Rough Sets.
 date: 2024-10-07 09:00:00 +0200
 categories: [Uncertainty Mathematical Frameworks]
 tags: [set theory, fuzzy sets, rough sets]
