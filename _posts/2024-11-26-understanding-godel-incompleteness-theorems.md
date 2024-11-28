@@ -1,5 +1,5 @@
 ---
-title: Understanding Gödel incompleteness theorems
+title: Understanding Gödel's incompleteness theorems
 description: Why mathematics are not broken.
 date: 2024-11-28 09:00:00 +0200
 categories: [Logic]
